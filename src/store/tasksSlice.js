@@ -1,7 +1,8 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
+// Load tasks from localStorage if available, or use an empty array as initial state
 const initialState = {
-  tasks: [],
+  tasks: JSON.parse(localStorage.getItem("tasks")) || [],
   priorityFilter: "all",
   statusFilter: "all",
 };
@@ -10,10 +11,10 @@ const tasksSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    // Add a new task
     addTask: {
       reducer: (state, action) => {
         state.tasks.push(action.payload);
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       },
       prepare: ({ title, description, priority }) => ({
         payload: {
@@ -25,8 +26,6 @@ const tasksSlice = createSlice({
         },
       }),
     },
-
-    // Update an existing task
     updateTask: (state, action) => {
       const { id, title, description, priority } = action.payload;
       const existingTask = state.tasks.find((task) => task.id === id);
@@ -34,31 +33,26 @@ const tasksSlice = createSlice({
         existingTask.title = title;
         existingTask.description = description;
         existingTask.priority = priority;
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       }
     },
-
-    // Delete a task
     deleteTask: (state, action) => {
       const index = state.tasks.findIndex((task) => task.id === action.payload);
       if (index !== -1) {
         state.tasks.splice(index, 1);
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       }
     },
-
-    // Toggle the completion status of a task
     toggleTask: (state, action) => {
       const task = state.tasks.find((task) => task.id === action.payload);
       if (task) {
         task.completed = !task.completed;
+        localStorage.setItem("tasks", JSON.stringify(state.tasks));
       }
     },
-
-    // Set the priority filter
     setPriorityFilter: (state, action) => {
       state.priorityFilter = action.payload;
     },
-
-    // Set the status filter
     setStatusFilter: (state, action) => {
       state.statusFilter = action.payload;
     },

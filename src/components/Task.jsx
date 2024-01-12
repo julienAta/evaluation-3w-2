@@ -27,19 +27,23 @@ function Task({ task }) {
 
   return (
     <div className={`p-4 border ${task.completed ? "bg-green-200" : ""}`}>
-      <h3 className="font-bold">{task.title}</h3>
-      <p>{task.description}</p>
-      <p className={`${priorityColor(task.priority)}`}>
-        Priority:{" "}
-        {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
-      </p>
-      <div>
-        <button onClick={handleToggle} className="mr-2">
-          {task.completed ? "Mark as Incomplete" : "Mark as Complete"}
-        </button>
-        <button onClick={handleDelete} className="text-red-500">
-          Delete
-        </button>
+      <div className="flex justify-between">
+        <div>
+          <h3 className="font-bold">{task.title}</h3>
+          <p>{task.description}</p>
+          <p className={`${priorityColor(task.priority)}`}>
+            Priority:{" "}
+            {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
+          </p>
+        </div>
+        <div className="flex items-center">
+          <button onClick={handleToggle} className="mr-2">
+            {task.completed ? "Mark as Incomplete" : "Mark as Complete"}
+          </button>
+          <button onClick={handleDelete} className="text-red-500">
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   );
