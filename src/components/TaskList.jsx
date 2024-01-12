@@ -17,17 +17,21 @@ function TaskList() {
 
     return priorityMatch && statusMatch;
   });
+
   if (sortOrder === "oldest") {
     filteredTasks = [...filteredTasks].reverse();
   }
+
   return (
     <>
       <Filter />
 
       <div className="p-4">
-        {filteredTasks.map((task) => (
-          <Task key={task.id} task={task} />
-        ))}
+        {filteredTasks.length === 0 ? (
+          <p className="flex justify-center">No tasks found.</p>
+        ) : (
+          filteredTasks.map((task) => <Task key={task.id} task={task} />)
+        )}
       </div>
     </>
   );
