@@ -1,10 +1,15 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPriorityFilter, setStatusFilter } from "../store/tasksSlice";
+import {
+  setPriorityFilter,
+  setStatusFilter,
+  setSortOrder,
+} from "../store/tasksSlice";
 
 function Filter() {
   const dispatch = useDispatch();
   const { priorityFilter, statusFilter } = useSelector((state) => state.tasks);
+  const sortOrder = useSelector((state) => state.tasks.sortOrder);
 
   const handlePriorityChange = (e) => {
     dispatch(setPriorityFilter(e.target.value));
@@ -14,6 +19,13 @@ function Filter() {
     dispatch(setStatusFilter(e.target.value));
   };
 
+  const toggleSortOrder = () => {
+    if (sortOrder === "newest") {
+      dispatch(setSortOrder("oldest"));
+    } else {
+      dispatch(setSortOrder("newest"));
+    }
+  };
   return (
     <div className="flex justify-between p-4">
       <div>
@@ -33,6 +45,10 @@ function Filter() {
           <option value="very-urgent">Very Urgent</option>
         </select>
       </div>
+
+      <button onClick={toggleSortOrder} className="border p-2">
+        Sort by: {sortOrder === "newest" ? "Oldest" : "Newest"}
+      </button>
 
       <div>
         <label htmlFor="status-filter" className="mr-2">

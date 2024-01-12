@@ -1,10 +1,10 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
 
-// Load tasks from localStorage if available, or use an empty array as initial state
 const initialState = {
   tasks: JSON.parse(localStorage.getItem("tasks")) || [],
   priorityFilter: "all",
   statusFilter: "all",
+  sortOrder: "newest",
 };
 
 const tasksSlice = createSlice({
@@ -56,6 +56,9 @@ const tasksSlice = createSlice({
     setStatusFilter: (state, action) => {
       state.statusFilter = action.payload;
     },
+    setSortOrder: (state, action) => {
+      state.sortOrder = action.payload;
+    },
   },
 });
 
@@ -66,6 +69,7 @@ export const {
   toggleTask,
   setPriorityFilter,
   setStatusFilter,
+  setSortOrder,
 } = tasksSlice.actions;
 
 export default tasksSlice.reducer;

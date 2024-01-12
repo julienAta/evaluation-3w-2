@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
-import Filter from "./components/Filter";
 import "./App.css";
 import "./index.css";
 
