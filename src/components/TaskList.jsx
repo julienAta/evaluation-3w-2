@@ -4,10 +4,10 @@ import Task from "./Task";
 import Filter from "./Filter";
 
 function TaskList() {
-  const { tasks, priorityFilter, statusFilter } = useSelector(
+  const { tasks, priorityFilter, statusFilter, sortOrder } = useSelector(
     (state) => state.tasks
   );
-  const filteredTasks = tasks.filter((task) => {
+  let filteredTasks = tasks.filter((task) => {
     let priorityMatch =
       priorityFilter === "all" || task.priority === priorityFilter;
 
@@ -17,7 +17,9 @@ function TaskList() {
 
     return priorityMatch && statusMatch;
   });
-
+  if (sortOrder === "oldest") {
+    filteredTasks = [...filteredTasks].reverse();
+  }
   return (
     <>
       <Filter />
