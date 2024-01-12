@@ -46,9 +46,9 @@ function Filter() {
         </select>
       </div>
 
-      <button onClick={toggleSortOrder} className="border p-2">
+      {/* <button onClick={toggleSortOrder} className="border p-2">
         Sort by: {sortOrder === "newest" ? "Oldest" : "Newest"}
-      </button>
+      </button> */}
 
       <div>
         <label htmlFor="status-filter" className="mr-2">
